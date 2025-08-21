@@ -35,6 +35,7 @@ public class ArticleController {
     @PostMapping("/articles/create")
     public String createArticle(ArticleForm articleForm){
         Article article = articleForm.toEntity();
+        log.info(article.toString());
 
         // repository에게 entity를 db 안에 저장하도록 함.
         Article saved = articleRepository.save(article);
@@ -43,8 +44,18 @@ public class ArticleController {
         return "redirect:/articles/" + saved.getId();
     }
 
+    @PostMapping("/articles/update")
+    public String update(ArticleForm form) {
+        Article articleEntity = form.toEntity();
+
+        Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
+
+        if(target != null) articleRepository.save(articleEntity);
+        return "redirect:/articles/" + articleEntity.getId();
+    }
+
     @GetMapping("/articles/{id}")
-    public String show(@PathVariable Long id, Model model){
+    public String show(@PathVariable("id")  Long id, Model model){
         log.info("id = " + id);
 
         Article articleEntity = articleRepository.findById(id).orElse(null);

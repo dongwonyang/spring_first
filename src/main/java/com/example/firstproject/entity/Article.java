@@ -1,9 +1,6 @@
 package com.example.firstproject.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +11,16 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Getter
+@SequenceGenerator(
+        name = "id_generator",
+        sequenceName = "BOARD_SEQ",
+        initialValue = 4,
+        allocationSize = 1
+)
 public class Article {
     @Id
-    @GeneratedValue // 1, 2, 3 ... 자동으로 생성
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "id_generator")
     private Long id;
     @Column
     private String title;
