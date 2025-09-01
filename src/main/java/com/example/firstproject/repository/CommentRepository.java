@@ -16,5 +16,4 @@ public interface CommentRepository extends CrudRepository<Comment, Long> {
     List<Comment> findByArticleId(@Param("articleId") Long articleId);
 
     List<Comment> findByNickname(String nickname);
-
 }
