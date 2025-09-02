@@ -1,5 +1,6 @@
 package com.example.firstproject.service;
 
+import com.example.firstproject.annotation.RunningTime;
 import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.dto.CommentDto;
 import com.example.firstproject.entity.Article;
@@ -47,6 +48,7 @@ public class CommentService {
         return CommentDto.createCommentDto(updated);
     }
 
+    @RunningTime
     @Transactional
     public CommentDto delete(Long id){
         Comment target = getComment(id);
